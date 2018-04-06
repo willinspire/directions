@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<title>Get Directions</title>
+    <meta name="description" content="Input your starting location and your intended destination and get an output of directions in Google Maps">
+    <meta name="keywords" content="google, google maps, google apps, google apps script, resonova, directions, driving directions, quick directions">
+    <!-- ****** FAVICONS AND BRANDING ****** -->
+    <!-- This site uses a favicon generator service provided by favicon-generator.org -->
+    <link rel="apple-touch-icon" sizes="57x57" href="https://h8rt3rmin8r.com/images/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="https://h8rt3rmin8r.com/images/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="https://h8rt3rmin8r.com/images/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="https://h8rt3rmin8r.com/images/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="https://h8rt3rmin8r.com/images/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="https://h8rt3rmin8r.com/images/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="https://h8rt3rmin8r.com/images/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="https://h8rt3rmin8r.com/images/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://h8rt3rmin8r.com/images/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="https://h8rt3rmin8r.com/images/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://h8rt3rmin8r.com/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="https://h8rt3rmin8r.com/images/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://h8rt3rmin8r.com/images/favicon-16x16.png">
+    <link rel="manifest" href="https://h8rt3rmin8r.com/images/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="http://h8rt3rmin8r.com/images/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="https://h8rt3rmin8r.com/images/android-icon-192x192.png">
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Directions">
+    <link rel="apple-touch-icon-precomposed" href="https://h8rt3rmin8r.com/images/apple-icon-precomposed.png">
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="http://h8rt3rmin8r.com/images/ms-icon-144x144.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+    <link rel="shortcut icon" href="https://h8rt3rmin8r.com/images/favicon.png">
+    <!-- ****** CSS STYLE DATA ****** -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" 				integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://resonova.github.io/cdn/css/animate.css">
+    <link rel="stylesheet" href="https://resonova.github.io/cdn/css/fa.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<style>
+    	html {
+            position: relative;
+            min-height: 100%;
+        }
+
+        body {
+            margin: 0;
+            margin-bottom: 60px;
+            margin-top: 120px;
+            padding: 0;
+            font: 1em 'Andale Mono', Consolas, 'Courier New';
+            height: 100%;
+            background: url('https://i.pinimg.com/474x/e3/ea/92/e3ea92c6e831c7fb709176070cb17371.jpg');
+            background-repeat: repeat;
+            min-height: 400px;
+        }
+        
+        p, i {
+        	font-size: 0.9em;
+        }
+        
+        h2 {
+        	color: green;
+        }
+        
+        .card {
+        	background: #ffffff;
+            margin: 10px;
+            padding: 10px;
+        }
+        
+        .card-title {
+        	text-align: center;
+        }
+        
+        .user-text {
+        	width: 100%;
+            min-height: 35px;
+            color: black;
+            background-color: #e0e0e0;
+            font-size: 0.92em;
+        }
+        
+        .input-btn {
+        	color: white;
+            width: 100%;
+            text-align: center;
+            background: #8e8e8e;
+            color: white;
+        	min-width: 100px;
+            min-height: 35px;
+            -webkit-transition: all 0.4s ease-in-out;
+    		-moz-transition: all 0.4s ease-in-out;
+    		-o-transition: all 0.4s ease-in-out;
+    		transition: all 0.4s ease-in-out;
+        }
+        
+        .input-btn:hover {
+            width: 100%;
+            text-align: center;
+            background: #6d6d6d;
+            color: #00cc00;
+        	min-width: 100px;
+            min-height: 35px;
+            -webkit-transition: all 0.4s ease-in-out;
+    		-moz-transition: all 0.4s ease-in-out;
+    		-o-transition: all 0.4s ease-in-out;
+    		transition: all 0.4s ease-in-out;
+        }
+    </style>
+    
+    <!-- ****** SITE SCRIPTS ****** -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+	$(document).ready(function(){
+    	$("button.input-btn").click(function(){
+        	$("form").toggle(300);
+    	});
+	});
+    </script>
+    
+</head>
+<body>
+	<div class="container">
+    	<div class="wrapper">
+			<div class="card">
+            	<div class="card-title">
+                	<br>
+                	<h2>Get Directions</h2>
+                </div>
+                <div class="card-text" id="form">
+					<form action="http://maps.google.com/maps" method="get" class="collapse" id="directions-form">
+						
+                        <span>
+                			<label for="saddr">FROM</label>
+							<input class="user-text" type="text" name="saddr" id="saddr" value="" />
+                		</span>
+                        	<br><br>
+                            
+						<span>
+            				<label for="daddr">TO</label>
+							<input class="user-text" type="text" name="daddr" id="daddr" value="" />
+                        </span>
+                        	<br><br>
+                        
+                        <span>
+							<input class="btn input-btn" type="submit" value="GO" />
+            			</span>
+                        	<br><br>
+                        <span>
+                        	<p>
+                            	<i>
+                                	<span>(1) Enter your start location in the "FROM" field</span><br>
+                                	<span>(2) Enter your destination in the "TO" field</span><br>
+                                    <span>(3) Press "GO" to get your directions</span><br>
+                                </i>
+                            </p>
+                        </span>
+                        
+					</form>
+                </div>
+			</div>
+        </div>
+    </div>
+    <div class="container">
+    	<div class="wrapper">
+        	<div class="card">
+				<button class="btn input-btn">INPUT DATA</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.hoverintent/1.9.0/jquery.hoverIntent.min.js"></script>
+</body>
+
+</html>
